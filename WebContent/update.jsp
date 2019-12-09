@@ -20,15 +20,15 @@ String access=i.getAccess();
 	String city=request.getParameter("city");
 	try{
 		Class.forName("com.mysql.jdbc.Driver");
-		Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/data","root","root");
+		Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/data","root","1234");
 		String sql="";
 		if(access.equals("admin"))
 		{
-			sql="UPDATE admin SET name=?,email=?,pass=?,mbno=?,city=? where id=?";
+			sql="UPDATE `admin` SET `name`=?,`email`=?,`pass`=?,`mbno`=?,`city`=? where `id`=?";
 		}
 		else
 		{
-			sql="UPDATE member SET name=?,email=?,pass=?,mbno=?,city=? where id=?";
+			sql="UPDATE `member` SET `name`=?,`email`=?,`pass`=?,`mbno`=?,`city`=? where `id`=?";
 		}
 		PreparedStatement ps=con.prepareStatement(sql);
 		ps.setString(1,name);

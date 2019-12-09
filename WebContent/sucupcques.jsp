@@ -9,7 +9,7 @@ if(gemail.equals("null") && gpass.equals("null"))
 	<%	
 }
 Class.forName("com.mysql.jdbc.Driver");
-Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/data","root","root");
+Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/data","root","1234");
 
 int id=Integer.parseInt(request.getParameter("x"));
 String ques=request.getParameter("ques");
@@ -19,14 +19,14 @@ String optc=request.getParameter("optc");
 String optd=request.getParameter("optd");
 String ans=request.getParameter("ans");
 
-String sql1="update cques set ques=? where quesid=?";
+String sql1="update `cques` set `ques`=? where `quesid`=?";
 PreparedStatement ps1=con.prepareStatement(sql1);
 ps1.setString(1,ques);
 ps1.setInt(2,id);
 ps1.executeUpdate();
 
 
-String sql2="update cans set ansid=?,opta=?,optb=?,optc=?,optd=? where quesid=?";
+String sql2="update `cans` set `ansid`=?,`opta`=?,`optb`=?,`optc`=?,`optd`=? where `quesid`=?";
 PreparedStatement ps2=con.prepareStatement(sql2);
 ps2.setString(1,ans);
 ps2.setString(2,opta);

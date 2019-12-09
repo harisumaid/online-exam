@@ -6,9 +6,10 @@
 String gemail=(String)session.getAttribute("uemail");
 String gpass=(String)session.getAttribute("upass");
 
-Class.forName("com.mysql.jdbc.Driver");
-Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/data","root","root");
-String sql="select count(*) as total from cques";
+Class.forName("com.mysql.cj.jdbc.Driver");
+Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/data","root","1234");
+DatabaseMetaData metadata = con.getMetaData();
+String sql="select count(*) as total from `cques`";
 PreparedStatement ps=con.prepareStatement(sql);
 ResultSet rs=ps.executeQuery();
 int n=0;
@@ -23,11 +24,11 @@ for(int j=0;j<=n;j++)
 }
 for(int j=1;j<=n;j++)
 {
-	String sql1="select * from cques where quesid=?";
+	String sql1="select * from `cques` where `quesid`=?";
 	PreparedStatement ps1=con.prepareStatement(sql1);
 	ps1.setInt(1,j);
 	ResultSet rs1=ps1.executeQuery();
-	String sql2="select * from cans where quesid=?";
+	String sql2="select * from `cans` where `quesid`=?";
 	PreparedStatement ps2=con.prepareStatement(sql2);
 	ps2.setInt(1,j);
 	ResultSet rs2=ps2.executeQuery();
@@ -35,11 +36,11 @@ for(int j=1;j<=n;j++)
 	while(rs1.next() && rs2.next())
 	{		
 		q[j].setQues(rs1.getString(2));
-		q[j].setCans(rs2.getString(1));
-		q[j].setOpta(rs2.getString(2));
-		q[j].setOptb(rs2.getString(3));
-		q[j].setOptc(rs2.getString(4));
-		q[j].setOptd(rs2.getString(5));
+		q[j].setCans(rs2.getString(2));
+		q[j].setOpta(rs2.getString(3));
+		q[j].setOptb(rs2.getString(4));
+		q[j].setOptc(rs2.getString(5));
+		q[j].setOptd(rs2.getString(6));
 		
 	}
 }

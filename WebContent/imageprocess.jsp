@@ -4,7 +4,7 @@
 <%@page import="java.sql.*"%>
 <%
 Class.forName("com.mysql.jdbc.Driver");
-Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/data","root","root");
+Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/data","root","1234");
 String sql="insert into image (img)values(?)";
 String url=request.getParameter("pic");
 File f=new File(url);

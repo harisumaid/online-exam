@@ -12,7 +12,7 @@ if(gemail.equals("null") && gpass.equals("null"))
 	<%	
 }
 	Class.forName("com.mysql.jdbc.Driver");
-	Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/data","root","root");
+	Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/data","root","1234");
 	Vector<ques> v=(Vector<ques>)session.getAttribute("vector");
 	try{
 	String s=request.getParameter("id");
@@ -25,7 +25,7 @@ if(gemail.equals("null") && gpass.equals("null"))
 	}
 	catch(Exception e)
 	{
-		
+		System.out.println("Through showcques.jsp \n Exception :"+e);
 	}
 
 	
@@ -39,7 +39,8 @@ if(gemail.equals("null") && gpass.equals("null"))
      if(list.size() > 1) 
      {
          int idd = rand.nextInt(list.size());
-         int id=list.remove(idd);
+         Integer idList=list.remove(idd);
+         int id = idList.intValue();
          System.out.println("Selected: "+id);
          ques q=v.get(id);
      	String opta=q.getOpta();
@@ -332,7 +333,9 @@ body {
      {
     	 %>
     	 
-    	 <jsp:include page="ctestcomp.jsp?uid=<%=uid%>"/>
+    	 <jsp:include page="ctestcomp.jsp">
+    	 	<jsp:param value="<%=uid%>" name="uid"/>
+    	 </jsp:include>
     	 <%
      }
      session.setAttribute("l",list);	

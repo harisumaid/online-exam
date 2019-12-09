@@ -11,14 +11,16 @@ if(gemail.equals("null") && gpass.equals("null"))
 	<%	
 }
 Class.forName("com.mysql.jdbc.Driver");
-Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/data","root","root");
+Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/data","root","1234");
 Vector<ques> v=(Vector<ques>)session.getAttribute("vector");
+
+System.out.println(request.getParameter("uid"));
 
 int uid=Integer.parseInt(request.getParameter("uid"));
 
-String sql="create table member_id"+uid+"(id int)";
-PreparedStatement ps=con.prepareStatement(sql);
-ps.executeUpdate();	
+//String sql="create table member_id"+uid+"(id int)";
+//PreparedStatement ps=con.prepareStatement(sql);
+//ps.executeUpdate();	
 
 
 
@@ -27,42 +29,42 @@ int wrong=0;
 
 
 
-String sql3="alter table member_id"+uid+" add column ques"+1+" char(20)";
-PreparedStatement ps3=con.prepareStatement(sql3);
-ps3.executeUpdate();	
+//String sql3="alter table member_id"+uid+" add column ques"+1+" char(20)";
+//PreparedStatement ps3=con.prepareStatement(sql3);
+//ps3.executeUpdate();	
 
 
-ques q1=v.get(1);
-String sql1="insert into member_id"+uid+" (id,ques"+1+")values(?,?)";
-PreparedStatement ps1=con.prepareStatement(sql1);
-ps1.setInt(1,uid);
-String uans=q1.getUans();
-ps1.setString(2,uans);
-ps1.executeUpdate();	
+//ques q1=v.get(1);
+//String sql1="insert into member_id"+uid+" (id,ques"+1+")values(?,?)";
+//PreparedStatement ps1=con.prepareStatement(sql1);
+//ps1.setInt(1,uid);
+//String uans=q1.getUans();
+//ps1.setString(2,uans);
+//ps1.executeUpdate();	
 
-if(q1.getCans().equals(uans))
+//if(q1.getCans().equals(uans))
+//{
+//	right=right+1;
+//}
+//else
+//{
+//	wrong=wrong+1;
+//}	
+
+
+for(int j=1;j<v.size();j++)
 {
-	right=right+1;
-}
-else
-{
-	wrong=wrong+1;
-}	
-
-
-for(int j=2;j<v.size();j++)
-{
-	sql3="alter table member_id"+uid+" add column ques"+j+" char(20)";
-	ps3=con.prepareStatement(sql3);
-	ps3.executeUpdate();	
+	//sql3="alter table member_id"+uid+" add column ques"+j+" char(20)";
+	//ps3=con.prepareStatement(sql3);
+	//ps3.executeUpdate();	
 	
 	
 	ques q=v.get(j);
-	sql1="update member_id"+uid+" set ques"+j+"=? where id="+uid;
-	ps1=con.prepareStatement(sql1);
-	uans=q.getUans();
-	ps1.setString(1,uans);
-	ps1.executeUpdate();	
+	//sql1="update member_id"+uid+" set ques"+j+"=? where id="+uid;
+	//ps1=con.prepareStatement(sql1);
+	String uans=q.getUans();
+	//ps1.setString(1,uans);
+	//ps1.executeUpdate();	
 	
 	if(q.getCans().equals(uans))
 	{
@@ -73,7 +75,7 @@ for(int j=2;j<v.size();j++)
 		wrong=wrong+1;
 	}	
 }
-	String sql2="insert into creport values(?,?,?,?,?)";
+	String sql2="insert into `creport` values(?,?,?,?,?)";
 	PreparedStatement ps2=con.prepareStatement(sql2);
 	ps2.setInt(1,uid);
 	ps2.setInt(2,right);
@@ -246,3 +248,4 @@ body {
 
 </body>
 </html>
+	

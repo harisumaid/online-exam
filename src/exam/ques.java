@@ -2,7 +2,7 @@ package exam;
 public class ques {
 	private String ques,opta,optb,optc,optd,cans,uans;
 	private int n;
-	ques()
+	public ques()
 	{
 		uans="null";
 	}
@@ -51,6 +51,7 @@ public class ques {
 	public int getN() {
 		return n;
 	}
+//	set total no of questions
 	public void setN(int n) {
 		this.n = n;
 	}

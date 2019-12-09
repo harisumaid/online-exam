@@ -103,7 +103,7 @@ body {
       <tr>
         <th>UserName</th>
         <th>Email</th>
-        <th>Mobno</th>
+        <th>Mob no.</th>
         <th>City</th>
         <th>Status</th>
       </tr>
@@ -113,8 +113,8 @@ body {
 
 <%
 Class.forName("com.mysql.jdbc.Driver");
-Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/data","root","root");
-String sql="select * from member ORDER BY name asc";
+Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/data","root","1234");
+String sql="select * from `member` ORDER BY name asc";
 PreparedStatement ps=con.prepareStatement(sql);
 ResultSet rs=ps.executeQuery();
 while(rs.next())
@@ -133,7 +133,7 @@ while(rs.next())
         <td><%=mbno%></td>
         <td><%=city%></td>
         <%
-        String sql7="select * from creport where id="+id;
+        String sql7="select * from `creport` where `uid`="+id;
         PreparedStatement ps7=con.prepareStatement(sql7);
         ResultSet rs7=ps7.executeQuery();
         if(rs7.next())

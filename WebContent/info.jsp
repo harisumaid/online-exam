@@ -22,15 +22,15 @@ pass="";
 city="";
 try{
 Class.forName("com.mysql.jdbc.Driver");
-Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/data","root","root");
+Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/data","root","1234");
 String sql="";
 if(access.equals("admin"))
 {
-	sql="select * from admin where id=?";
+	sql="select * from `admin` where id=?";
 }
 else
 {
-	sql="select * from member where id=?";	
+	sql="select * from `member` where id=?";	
 }
 PreparedStatement ps=con.prepareStatement(sql);
 ps.setInt(1,id);

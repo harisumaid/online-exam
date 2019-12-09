@@ -16,7 +16,7 @@ if(gemail.equals("null") && gpass.equals("null"))
 try
 {
 Class.forName("com.mysql.jdbc.Driver");
-Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/data","root","root");
+Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/data","root","1234");
 
 
 int uid=0;
@@ -30,7 +30,7 @@ else
 }
 //System.out.println(uid);
 
-String sql1="select * from creport where id=?";
+String sql1="select * from `creport` where `uid`=?";
 PreparedStatement ps1=con.prepareStatement(sql1);
 ps1.setInt(1,uid);
 ResultSet rs1=ps1.executeQuery();
@@ -184,68 +184,13 @@ else
 
 
 
-if(i.getAccess().equals("admin"))
-{
-	
-	
-	%>
-	
-	  <div class="table-responsive">   
-  <table class="table" style="background-color:grey">
-    <thead>
-      <tr>
-        <th>Question No</th>
-        <th>Student Answer</th>
-        <th>Correct Answer</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-	
-	
-	<%
-	Vector<ques> v=(Vector<ques>)session.getAttribute("vector");
-	String sql="select * from member_id"+uid;
-	PreparedStatement ps=con.prepareStatement(sql);
-	ResultSet rs=ps.executeQuery();
-	while(rs.next())
-	{
-		for(int p=2;p<=v.size();p++)
-		{
-			
-			ques q=v.get(p-1);
-			
-			%>
 
-
-			 <tr>
-		        <td><%=(p-1)%></td>
-		        <td><%=rs.getString(p)%></td>
-		        <td><%=q.getCans()%></td>
-		        <td><%
-		        if(rs.getString(p).equals(q.getCans()))
-		        		{
-		        	%>
-		        	<span class="glyphicon glyphicon-ok-sign"></span>
-		        	<%
-		        		}
-		        else
-		        {
-		        	%>
-		        	<span class="glyphicon glyphicon-remove-sign"></span>
-		        	<%
-		        }
-		        
-		   		   %></td>
-		        <%
-		}
-	}
-}
 if(rs1.next())
 {
 	int right=rs1.getInt(2);
 	int wrong=rs1.getInt(3);
 	float per=rs1.getFloat(4);
+	String status = rs1.getString(5);
 	
 	%>
 	</tbody>
@@ -261,65 +206,8 @@ if(rs1.next())
 	<center><h3>Correct Answers:<%=right%></h3></center>
 	<center><h3>Wrong Answers:<%=wrong%></h3></center>
 	<center><h3>Percentage:<%=per%></h3></center>
-<%
-	
-	
-	if(per>90 && per<=100)
-	{
-%>
-		
-		<center><h1>A+</h1></center><br>
+		<center><h1><%= status %></h1></center><br>
 	<%
-	}
-	else if(per>80 && per<=90)
-	{
-%>
-		
-		<center><h1>A</h1></center><br>
-	<%
-	}
-	else if(per>70 && per<=80)
-	{
-%>
-		
-		<center><h1>B+</h1></center><br>
-	<%
-	}
-	else if(per>60 && per<=70)
-	{
-%>
-		
-		<center><h1>B</h1></center><br>
-	<%
-	}
-	else if(per>50 && per<=60)
-	{
-%>
-		
-		<center><h1>C</h1></center><br>
-	<%
-	}
-	else if(per>40 && per<=50)
-	{
-%>
-		
-		<center><h1>C+</h1></center><br>
-	<%
-	}
-	else if(per>=33 && per<=40)
-	{
-%>
-		
-		<center><h1>D</h1></center><br>
-	<%
-	}
-	else
-	{
-%>
-		
-		<center><h1>FAIL</h1></center><br>
-	<%
-	}	
 }
 else
 {
@@ -327,12 +215,14 @@ else
 	<div class="container">
     <div class="jumbotron vertical-center">
 	    <center><h2>The Student has not Given Any Exam</h2></center>
+	    <% System.out.println("In First else block"); %>
 	  </div></div>
 	<%
 }
 }
 catch(Exception e)
 {
+	System.out.println("Exception:  "+e);
 	int uid=0;
 	if(i.getAccess().equals("admin"))
 	{
@@ -347,6 +237,8 @@ catch(Exception e)
 <div class="container">
     <div class="jumbotron vertical-center">
 	    <center><h2>The Student has not Given Any Exam</h2></center>
+	    	    <% System.out.println("In First catch block"); %>
+	    
 	  </div></div>  	
 <%
 }

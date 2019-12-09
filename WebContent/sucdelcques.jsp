@@ -10,12 +10,12 @@ if(gemail.equals("null") && gpass.equals("null"))
 }
 int num=Integer.parseInt(request.getParameter("x"));
 Class.forName("com.mysql.jdbc.Driver");
-Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/data","root","root");
+Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/data","root","1234");
 
 int n=0;
 
 
-String sql6="select count(*) as total from cques";
+String sql6="select count(*) as `total` from `cques`";
 PreparedStatement ps6=con.prepareStatement(sql6);
 ResultSet rs6=ps6.executeQuery();
 while(rs6.next())
@@ -25,10 +25,10 @@ while(rs6.next())
 
 System.out.println("num="+num+"n="+n);
 
-String sql="delete from cques where quesid=?";
+String sql="delete from `cques` where `quesid`=?";
 PreparedStatement ps=con.prepareStatement(sql);
 ps.setInt(1, num);
-String sql1="delete from cans where quesid=?";
+String sql1="delete from `cans` where `quesid`=?";
 PreparedStatement ps1=con.prepareStatement(sql1);
 ps1.setInt(1, num);
 ps1.executeUpdate();
@@ -41,11 +41,11 @@ if(num<n)
 	j=del;
 	for(j=del;j<=n;j++)
 	{
-		String sql2="UPDATE cques SET quesid = quesid-1 where quesid=?";
+		String sql2="UPDATE `cques` SET `quesid`=`quesid`-1 where `quesid`=?";
 		PreparedStatement ps2=con.prepareStatement(sql2);
 		ps2.setInt(1,j);
 		
-		String sql3="UPDATE cans SET quesid = quesid-1 where quesid=?";
+		String sql3="UPDATE `cans` SET `quesid` = `quesid`-1 where `quesid`=?";
 		PreparedStatement ps3=con.prepareStatement(sql3);
 		ps3.setInt(1,j);
 		
@@ -59,12 +59,12 @@ else
 }
 
 
-String sql4="alter table cques auto_increment=?";
+String sql4="alter table `cques` auto_increment=?";
 PreparedStatement ps4=con.prepareStatement(sql4);
 ps4.setInt(1,j);
 
 
-String sql5="alter table cans auto_increment=?";
+String sql5="alter table `cans` auto_increment=?";
 PreparedStatement ps5=con.prepareStatement(sql5);
 ps5.setInt(1,j);
 

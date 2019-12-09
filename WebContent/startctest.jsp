@@ -11,8 +11,8 @@ if(gemail==null && gpass==null)
 	int uid=Integer.parseInt(request.getParameter("uid"));
 	
 	Class.forName("com.mysql.jdbc.Driver");
-	Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/data","root","root");
-	String sql="select count(*) as total from cques";
+	Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/data","root","1234");
+	String sql="select count(*) as `total` from `cques`";
 	PreparedStatement ps=con.prepareStatement(sql);
 	ResultSet rs=ps.executeQuery();
 	int num=0;
@@ -119,7 +119,7 @@ body {
   <li><strong><p style="font-size: 17px">Only one attempt will be given per question</p></strong></li>
   <li><strong><p style="font-size: 17px">All the questions are not compulsory</p></strong></li>
   <li><strong><p style="font-size: 17px">You cannot go back to any previous question</p></strong></li>
-  <li><strong><p style="font-size: 17px">If student closes the quiz in between then the student will be considered a	s FAILED</p></strong></li>
+  <li><strong><p style="font-size: 17px">If student closes the quiz in between then the student will be considered as FAILED</p></strong></li>
 </ul>
 <br><br>
 <a href="showcques.jsp?uid=<%=uid%>" class="btn btn-danger btn-block" role="button"><span class="glyphicon glyphicon-play-circle"> </span> START TEST</a>
